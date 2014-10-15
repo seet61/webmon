@@ -1,0 +1,32 @@
+<!doctype html>
+<title>Monitoring</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='image.css') }}">
+<div class=page>
+{% block body %}
+  	<em>Параметр:</em>{{ param_image }} <Br><em>Длительность(сек.):</em>{{ duration }}<Br>
+<!--  	<table cellspacing="5" width='80%' cols='4'>
+  	{% for host in sort %}
+  	   	<td> 
+    		<em>{{ host }}</em>
+    		{% if 'http' in images[host] %} 
+    			<a href="{{ images[host] }}"><img width="{{ width }}" height="{{ height }}" src="{{ images[host] }}"></a>
+    		{% else %}
+    			<em>Данный сервер не мониторится.</em>
+    		{% endif %}
+    	</td>
+  	{% else %}
+    	<td> <li><em>Нет выбранных элементов.</em></td>
+  	{% endfor %}
+  	</table> -->
+  	{% for host in sort %}
+  	   		<!--<em>{{ host }}</em> -->
+    		{% if 'http' in images[host] %} 
+    			<a href="{{ images[host] }}"><img width="{{ width }}" height="{{ height }}" src="{{ images[host] }}" alt="{{ host }}"></a>
+    		{% else %}
+    			<em>Данный сервер не мониторится.</em>
+    		{% endif %}
+  	{% else %}
+    	<li><em>Нет выбранных элементов.</em>
+  	{% endfor %}
+{% endblock %}
+</div>

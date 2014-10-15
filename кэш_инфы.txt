@@ -1,0 +1,103 @@
+Сохранение картинки. 
+resource = urllib.urlopen('http://10.61.41.123:8080/SNMP_INT_API/MON_RENDER?host=ktulhu&oid=.1.3.6.1.4.1.11971.7001.1.1.7.2.77.48&duration=3600&height=400&width=800')
+out = open("img1.jpg", 'wb')
+out.write(resource.read())
+out.close()
+
+Парсинг главной страницы через lxml.html as html 
+	def parse_page(self):
+		""" Парсим страницу на наличие ссылок"""
+		page = html.parse(self.response)
+		a_link = page.iter('a')
+		current = a_link.next()
+		while current is not None:
+			try:
+				current = current.text
+				if "None"  in str(current):
+					pass
+				elif "Reestr" in current:
+					pass
+				elif "Config" in current:
+					pass
+				elif "MIBs" in current:
+					pass
+				elif "History" in current:
+					pass
+				elif "Hosts list" in current:
+					print current
+					current = a_link.next()
+				else:
+					name = current
+					current = a_link.next()
+					type_serv = current.text
+					print 'name:', name, ', type:', type_serv
+				current = a_link.next()
+			except StopIteration:
+				current = None
+
+-- разница в имени сервера страница необходимая
+http://10.61.41.123:8080/SNMP_INT_API/MON_INDEX_LIST?host=germes&appl_id=9026&instance=&module=PETER-SERVICE-SNMP-INT-SYSMON-MIB&param=.1.3.6.1.4.1.11971.9026.11.3.2.1.1
+http://10.61.41.123:8080/SNMP_INT_API/MON_INDEX_LIST?host=ktulhu&appl_id=9026&instance=&module=PETER-SERVICE-SNMP-INT-SYSMON-MIB&param=.1.3.6.1.4.1.11971.9026.11.3.2.1.1
+
+--Различия в имени сервера и периоде
+http://10.61.41.123:8080/SNMP_INT_API/MON_RENDER?host=ktulhu&oid=.1.3.6.1.4.1.11971.9026.11.3.2.1.1.6.107.116.117.108.104.117&duration=3600&height=400&width=800
+http://10.61.41.123:8080/SNMP_INT_API/MON_RENDER?host=ktulhu&oid=.1.3.6.1.4.1.11971.9026.11.3.2.1.1.6.107.116.117.108.104.117&duration=86400&height=400&width=800
+
+http://10.61.41.123:8080/SNMP_INT_API/MON_RENDER?host=kvk-bal1&oid=.1.3.6.1.4.1.11971.9026.11.3.2.1.1.8.107.118.107.45.98.97.108.49&duration=3600&height=400&width=800
+http://10.61.41.123:8080/SNMP_INT_API/MON_RENDER?host=kvk-bal1&oid=.1.3.6.1.4.1.11971.9026.11.3.2.1.1.8.107.118.107.45.98.97.108.49&duration=86400&height=400&width=800
+
+
+http://10.61.41.123:8080/SNMP_INT_API/MON_RENDER?host=titan&oid=.1.3.6.1.4.1.11971.9026.11.3.2.1.1.6.107.116.117.108.104.117&duration=3600&height=400&width=800
+http://10.61.41.123:8080/SNMP_INT_API/MON_RENDER?host=titan&oid=.1.3.6.1.4.1.11971.9026.11.3.2.1.1.5.116.105.116.97.110&duration=3600&height=400&width=800
+
+http://10.61.41.123:8080/SNMP_INT_API/MON_INDEX_LIST?host=titan&appl_id=9026&instance=&module=PETER-SERVICE-SNMP-INT-SYSMON-MIB&param=.1.3.6.1.4.1.11971.9026.11.3.2.1.1
+
+
+
+    		<img width="300" height="150" src="{{ images[host + 'Hour'] }}">
+    		<img width="300" height="150" src="{{ images[host + 'Day'] }}">
+    		<img width="300" height="150" src="{{ images[host + 'Week'] }}">
+    		<img width="300" height="150" src="{{ images[host + 'Year'] }}">
+
+
+
+svcApplPidRegStatus
+svcApplUpTime
+svcApplChildCount
+sysmonProcState
+sysmonProcCpu
+sysmonProcKernelTime
+sysmonProcUserTime
+sysmonProcTotalTime
+sysmonProcMem
+sysmonProcMemRes
+sysmonProcMemResPct
+sysmonProcIoTotal
+sysmonProcIoCalls
+sysmonProcFileState
+sysmonProcFileSize
+sysmonProcFileSizePct
+sysmonProcFileSizeAvailPct
+sysmonProcFileCount
+sysmonProcFileModifyTime
+sysmonSysCpu
+sysmonSysMemPct
+sysmonSysLoadAvg1Min
+sysmonSysLoadAvg5Min
+sysmonSysLoadAvg15Min
+sysmonSysNetworkSent
+sysmonSysNetworkReceived
+sysmonSysMem
+sysmonSysMemTotal
+sysmonSysMemUsedTotalPct
+sysmonSysMemUsedTotal
+sysmonDiskTotal
+sysmonDiskAvail
+sysmonDiskAvailPct
+sysmonDiskUsed
+sysmonDiskUsedPct
+sysmonNetworkStorageTotal
+sysmonNetworkStorageAvail
+sysmonNetworkStorageAvailPct
+sysmonNetworkStorageUsed
+sysmonNetworkStorageUsedPct

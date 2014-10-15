@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{ url_for('main') }}" method=post>
+  <ul class=main>
+<!--    <script type="text/javascript">
+		function checkAll(obj) {
+  			'use strict';
+  			// Получаем NodeList дочерних элементов input формы: 
+  			var items = obj.form.getElementsByTagName("input"), 
+      		len, i;
+  			// Здесь, увы цикл по элементам формы:
+  			for (i = 0, len = items.length; i < len; i += 1) {
+	    		// Если текущий элемент является чекбоксом...
+    			if (items.item(i).type === "checkbox") {
+    	  			// Дальше логика простая: если checkbox "Выбрать всё" - отмечен            
+      				if (obj.checked) {
+        			// Отмечаем все чекбоксы...
+        			items.item(i).checked = true;
+      				} else {
+        	// Иначе снимаем отметки со всех чекбоксов:
+        	items.item(i).checked = false;
+      				}       
+    			}
+  			}
+		}
+	</script>
+	<input id="one" type="checkbox" name="one" value="all" onclick="checkAll(this)" /><label for="one">Checkbox All</label><Br>	
+-->
+  	{% for host in sort %}
+    	<input id="one" type="checkbox" name="{{ host }}" value="{{ host }}">{{ host }}<Br>
+  	{% else %}
+    	<li><em>Unbelievable.  No entries here so far</em>
+  	{% endfor %}
+  </ul>
+  <ul class=param>
+  <select name=param>
+         {% for item in param %}
+            <option  value="{{item}}">{{item}}</option>
+         {% endfor %}
+   </select>
+   <dl>
+		<dt>Длительность:
+		<dd><input type=text name=duration value="3600">
+		<dt>Ширина:
+		<dd><input type=text name=width value="300">
+		<dt>Высота:
+		<dd><input type=text name=height value="150">
+		<dd><input type=submit value=Построить>
+   </dl>
+  </ul>
+</form>
+{% endblock %}
